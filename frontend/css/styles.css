@@ -51,7 +51,6 @@ footer {
   cursor: pointer;
   -webkit-transition: 0.2s all;
   overflow: hidden;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
