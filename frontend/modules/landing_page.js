@@ -1,3 +1,4 @@
+
 import config from "../conf/index.js";
 
 async function init() {
@@ -16,7 +17,7 @@ async function fetchCities() {
   // TODO: MODULE_CITIES
   // 1. Fetch cities using the Backend API and return the data
   try {
-    let response= await fetch("http://13.232.57.61:8082/cities");
+    let response= await fetch(config.backendEndpoint+ "/cities");
     let user= await response.json();
     return user;
   } catch(error){

@@ -5,20 +5,54 @@ import config from "../conf/index.js";
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
-
+  const cityUrls = new URLSearchParams(search);
+      //console.log(params.get('city'))
+     return cityUrls.get("city")
 }
-
 //Implementation of fetch call with a paramterized input based on city
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
-
+  try {
+    const res = await fetch(config.backendEndpoint+ `/adventures/?city=${city}`);
+    const users = await res.json();
+   // console.log(users)
+    return users;
+  }
+    catch(error) {
+    return null;
+  }
 }
 
 //Implementation of DOM manipulation to add adventures for the given city from list of adventures
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+    adventures.forEach((key) => {
+    const addCity = document.createElement("div");
+    addCity.className="col-6 col-lg-3 mb-3";
+     addCity.innerHTML=`
+              <a href="detail/?adventure=${key.id}", id="${key.id}">
+              <div class="activity-card">
+              <div class="category-banner">${key.category}</div>
+                  <img class = "activity-card img" src=${key.image}/>
+         
+                  <div class="card-body text-md-flex w-100 mt-3">
+                      <div class=" d-md-flex justify-content-between">
+                        <h5 class="text-left">${key.name}</h5>
+                        <p>${key.costPerHead}</p>
+                      </div>
+                                
+                      <div class="d-md-flex justify-content-between ">
+                        <h5 class="text-left">Duration</h5>
+                        <p>${key.duration} Hours</p>
+                      </div>
+                  </div>    
+              </div>
+            </div>
+          </a>`
+          document.getElementById("data").appendChild(addCity); 
+});
 
 }
 
